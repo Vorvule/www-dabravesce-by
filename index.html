@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang='be'>
+<head>
+    <title>Дабравесце</title>
+
+    <meta charset='UTF-8' />
+    <meta name='viewport'                content='width=device-width, initial-scale=1' />
+    <meta name='yandex-verification'     content='636f30845803b3cf' />
+    <meta name='description'             content='Новы Запавет і Малітоўнік на беларускай мове'    id='description' />
+    <meta name='keywords'                content='Дабравесце, Евангелле, Новы Запавет, Малітоўнік, Беларуская мова' />
+    
+    <link rel='stylesheet'               href='https://www.w3schools.com/w3css/4/w3.css' />
+    <link rel='stylesheet'               href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' />
+    
+    <link rel='manifest'                 href='app/favicon/site.webmanifest'>
+    <link rel='apple-touch-icon'         href='app/favicon/apple-touch-icon.png'  type='image/png' sizes='180x180' />
+    <link rel='icon'                     href='app/favicon/favicon-32x32.png'     type='image/png' sizes='32x32'   />
+    <link rel='icon'                     href='app/favicon/favicon-16x16.png'     type='image/png' sizes='16x16'   />
+    <link rel='mask-icon'                href='app/favicon/safari-pinned-tab.svg' color='#5bbad5' />
+    <link rel='shortcut icon'            href='app/favicon/favicon.ico' />
+    <meta name='msapplication-config'    content='app/favicon/browserconfig.xml' />
+    <meta name='msapplication-TileColor' content='#da532c' />
+    <meta name='theme-color'             content='#ffffff' />
+    
+    <meta property='og:url'              content='https://dabravesce.by' />
+    <meta property='og:type'             content='website' />
+    <meta property='og:title'            content='Дабравесце' />
+    <meta property='og:description'      content='Новы Запавет на беларускай мове' />
+    <meta property='og:image'            content='https://dabravesce.by/app/logo/square-logo.jpg' />
+    <meta property='og:image:alt'        content='Дабравесце на беларускай мове' />
+    <meta property='fb:app_id'           content='480142549312931' />
+    
+    <meta name='twitter:card'            content='summary' />
+    <meta name='twitter:title'           content='Дабравесце' />
+    <meta name='twitter:description'     content='Новы Запавет на беларускай мове' />
+    <meta name='twitter:image'           content='https://dabravesce.by/app/logo/square-logo.jpg' />
+    
+    <script src='tomes/new-testament.js'></script>
+    <script src='tomes/prayer-book.js'  ></script>
+    <script src='tomes/songs.js'        ></script>
+    <script src='tomes/contact-data.js' ></script>
+    
+    <style>
+        @font-face { font-family:Comfortaa; src:url(app/font/comfortaa-regular.ttf); } /* linked google fonts fail to show accents in Edge */
+        * { font-family:Comfortaa,sans-serif; font-size:14px }
+        
+        html { height:100% }
+        table { border-spacing:12px; width:100%; height:100% }
+        tr:nth-child(2) td { padding:0 16px }
+        audio { outline:none; height:40px; border-radius:20px; width:100%; margin:16px 0; }
+        #WrapperRight, #WrapperLeft { scrollbar-width:none; } ::-webkit-scrollbar { display:none; }
+
+        ul li, #SearchLine { cursor:pointer }
+        .w3-ul li.book { padding-left:32px }
+        .w3-ul li.item { padding-left:48px }
+        .item:hover { color:#2196F3 }
+        #TextView { padding:0 16px }
+        .view, .menu { margin-top:32px }
+        
+        .padded { padding:10px 12px 6px; cursor:pointer; display:inline-block }
+        .padded div {font-size:10px}
+        
+        @media only screen and (max-width: 480px) {
+            .padded div { font-size:8px }
+            .w3-ul li { padding:8px 12px }
+            .w3-ul li.book { padding-left:24px }
+            .w3-ul li.item { padding-left:36px }
+            #TextView { padding:0 }
+        }
+    </style>
+</head>
+
+<body style='height:100%;overflow:hidden'>
+
+    <div style='max-width:1280px;height:100%;margin:auto'>
+    
+        <table>
+        
+            <tr><!-- Upper row -->
+            
+                <!-- Left upper cell -->
+                <td class='w3-border w3-border-grey w3-white w3-center w3-hide-small w3-hover-text-blue' style='width:30%'>
+                    <div class='padded' onclick='location.href="https://dabravesce.by"'>ДАБРАВЕСЦЕ</div>
+                </td>
+                
+                <!-- Right upper cell -->
+                <td class='w3-border w3-border-grey w3-white w3-center' style='width:70%'>
+                    <div class='padded w3-hover-text-blue w3-text-blue w3-hide-large w3-hide-medium'
+                                                              onclick='site.menu.show()'      title='Меню сайта'        id='MenuIcon'>
+                        <i class='w3-large fa fa-bars'        aria-hidden='true'></i>
+                        <div>Меню</div>
+                    </div>
+                    <div class='padded w3-hover-text-blue'    onclick='site.smms.swap()'      title='Пашырыць старонку' id='ShareIcon'>
+                        <i class='w3-large fa fa-share-alt'   aria-hidden='true'></i>
+                        <div>Шырыць</div>
+                    </div>
+                    <div class='padded w3-hover-text-blue'    onclick='site.page.next(false)' title='Мінулая старонка'>
+                        <i class='w3-large fa fa-arrow-left'  aria-hidden='true'></i>
+                        <div>Назад</div>
+                    </div>
+                    <div class='padded w3-hover-text-blue'    onclick='site.page.next(true)'  title='Наступная старонка'>
+                        <i class='w3-large fa fa-arrow-right' aria-hidden='true'></i>
+                        <div>Далей</div>
+                    </div>
+                    <div class='padded w3-hover-text-blue'    onclick='site.search.show()'    title='Пошук тэкста'      id='SearchIcon'>
+                        <i class='w3-large fa fa-search'      aria-hidden='true'></i>
+                        <div>Пошук</div>
+                    </div>
+                </td>
+                
+            </tr>
+            
+            <tr> <!-- Lower row -->
+            
+                <!-- Left lower cell -->
+                <td class='w3-border w3-border-grey w3-white w3-hide-small'>
+                    <div id='WrapperLeft' style='width:100%;overflow:scroll'>
+                        <div class='menu'>
+                            <p class='w3-center w3-animate-left' ondblclick='site.daily.gospel()'>ЗМЕСТ</p>
+                            <ul id='SideMenuContainer' class='w3-ul'></ul>
+                        </div>
+                    </div>
+                </td>
+                
+                <!-- Right lower cell -->
+                <td class='w3-border w3-border-grey w3-white'>
+                    <div id='WrapperRight' style='width:100%;overflow:scroll'>
+                    
+                        <!-- Menu view -->
+                        <div id='MenuView' class='view w3-hide'>
+                            <p class='w3-center w3-animate-left' ondblclick='site.daily.gospel()'>ДАБРАВЕСЦЕ</p>
+                            <ul id='MenuContainer' class='w3-ul'></ul>
+                        </div>
+                        
+                        <!-- Content view -->
+                        <div id='TextView' class='view'>
+                        
+                            <p id='TomeInfo' class='w3-text-blue w3-center'></p>
+                            <p id='BookInfo' class='w3-text-blue w3-center'></p>
+                            <p id='ItemInfo' class='w3-text-blue w3-center'></p>
+                            
+                            <div id='SmmsLine' class='w3-center w3-animate-left w3-hide'>
+                            
+                                <div class='w3-hover-text-blue padded w3-center' onclick='site.smms.shareSmm("twitter")'>
+                                    <i class='fa fa-twitter w3-large'></i>
+                                    <div>Twitter</div>
+                                </div>
+                                
+                                <div class='w3-hover-text-blue padded w3-center' onclick='site.smms.shareSmm("telegram")'>
+                                    <i class='fa fa-paper-plane w3-large'></i>
+                                    <div>Telegram</div>
+                                </div>
+                                
+                                <div class='w3-hover-text-blue padded w3-center' onclick='site.smms.shareSmm("facebook")'>
+                                    <i class='fa fa-facebook w3-large'></i>
+                                    <div>Facebook</div>
+                                </div>
+                                
+                            </div>
+                            
+                            <audio id='AudioElement' class='w3-border w3-border-grey' controls preload='auto'>
+                                <source id='SourceElement' src='' type='audio/mpeg'>
+                            </audio>
+                            
+                            <div id='TextContainer'><!-- site.page.open() --></div>
+                            
+                        </div>
+                        
+                        <!-- Search view -->
+                        <div id='SearchView' class='view w3-hide'>
+                        
+                            <p class='w3-center w3-hover-text-blue' onclick='site.search.toggleShowSettings()' id='SearchLine'>
+                                <span>ПОШУК&nbsp;</span>
+                                <i class='fa fa-caret-down' aria-hidden='true'></i>
+                            </p>
+                            
+                            <div id='SearchSettings' class='w3-hide'>
+                            
+                                <p style='text-indent:28px'>Шукаць у кнігах:</p>
+                                <p>
+                                    <input class='w3-check' type='checkbox' checked='checked' name='testament'  id='TestamentCheckbox'>
+                                    <label for='TestamentCheckbox'>Новы Запавет</label>
+                                </p>
+                                <p>
+                                    <input class='w3-check' type='checkbox' checked='checked' name='prayerbook' id='PrayerbookCheckbox'>
+                                    <label for='PrayerbookCheckbox'>Малітоўнік</label>
+                                </p>
+                                <p>
+                                    <input class='w3-check' type='checkbox' checked='checked' name='songbook'   id='SongbookCheckbox'>
+                                    <label for='SongbookCheckbox'>Спевы</label>
+                                </p>
+                                
+                                <p style='text-indent:28px'>Улічваць рэгістр літар:</p>
+                                <p>
+                                    <input class='w3-radio' type='radio' name='case' id='CaseSensitive'>
+                                    <label for='CaseSensitive'>Так</label>
+                                </p>
+                                <p>
+                                    <input class='w3-radio' type='radio' name='case' id='CaseInsensitive' checked>
+                                    <label for='CaseInsensitive'>Не</label>
+                                </p>
+                                
+                            </div>
+                                
+                            <p>
+                                <input class='w3-input w3-border' id='SearchField'>
+                            </p>
+                            <p>
+                                <button class='w3-btn w3-block w3-dark-gray' onclick='site.search.filter()' id='SearchButton'>Шукаць</button>
+                            </p>
+
+                            <ul id='SearchResults' class='w3-ul'></ul>
+                            
+                        </div>
+                        
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+<script>
+
+const site = {
+    
+    layout : {
+        fix : function() { WrapperLeft.style.height = WrapperRight.style.height = (window.innerHeight - 94) + 'px' },
+        get isDesktop()  { return screen.width > 600 },
+    }, // layout
+
+    load : {
+        
+        first : function() {
+            site.layout.fix()
+            site.menu.make()
+
+            site.load.parse()
+            site.page.open()
+
+            site.load.listenToKeyUp
+            site.load.listenToPopUp
+        },
+    
+        parse : function() {
+            try {
+                let keys = document.location.href.split('?i=')[1]
+                    keys = keys.split('&')[0]
+                    keys = keys.split('-')
+                site.page.setKeys(Number(keys[0]), Number(keys[1]), Number(keys[2]), Number(keys[3]))
+            } catch {
+                site.page.setKeys(0,0,0,0)
+            }
+        },
+        
+        listenToKeyUp : SearchField.addEventListener('keyup', function(event) { if (event.keyCode === 13) { event.preventDefault(); SearchButton.click() } } ),
+        
+        listenToPopUp : window.onpopstate = function() {
+            site.href.fresh = false
+            site.load.parse()
+            site.page.open()
+        },
+    
+    }, // load
+
+    href : {
+    
+        fresh : true,
+        
+        keep : function() {
+            if (site.href.fresh) history.pushState('', '', 'index.html?i=' + site.page.tome + '-' + site.page.book + '-' + site.page.item + '-' + site.page.share);
+            site.href.fresh = true;
+        },
+
+    },
+
+    page : {
+    
+        tomeHash : null,
+        
+        swapTomeHash : function() {
+            switch(site.page.tome) {
+                case 0: site.page.tomeHash = newTestament; break;
+                case 1: site.page.tomeHash = prayerBook;   break;
+                case 2: site.page.tomeHash = songs;        break;
+                case 3: site.page.tomeHash = contactData;  break;
+            }
+        },
+        
+        tome : 0, // rubric volume
+        book : 0, // chapter section
+        item : 0, // portion verse
+        share : 0, // share icons line
+        
+        setKeys : function(tome, book, item, share) {
+            site.menu.unmark()
+            site.menu.collapse()
+            
+            site.page.tome = tome
+            site.page.book = book
+            site.page.item = item
+            site.page.swapTomeHash()
+            
+            if (share) {
+                site.page.share = share
+                site.smms.show()
+            } else {
+                site.smms.hide()
+            }
+
+            site.menu.expand()
+            site.menu.mark()
+            
+            site.href.keep()
+        },
+        
+        go : function(id) {
+            let keys = id.split('-')
+            if (keys.length == 3) keys[3] = site.page.share
+            site.page.setKeys(Number(keys[0]), Number(keys[1]), Number(keys[2]), Number(keys[3]))
+            site.page.open()
+        },
+        
+        open : function() {
+            
+            site.menu.show(site.layout.isDesktop)
+            WrapperRight.scrollTo(0, 0)
+
+            TextContainer.innerHTML = site.page.tomeHash[site.page.book][site.page.item][1]
+            site.page.fillInfo()
+            site.setAudio()
+            
+            TextView.classList.remove('w3-hide')
+            SearchView.classList.add('w3-hide')
+            SearchIcon.classList.remove('w3-text-blue')
+
+            site.page.setTitleAndDescription()
+        },
+        
+        fillInfo : function() {
+            TomeInfo.innerHTML = site.menu.tomes[site.page.tome]
+            BookInfo.innerHTML = site.page.tomeHash[site.page.book][site.page.tomeHash[site.page.book].length - 1][0]
+            ItemInfo.innerHTML = site.page.tomeHash[site.page.book][site.page.item][0]
+        },
+        
+        next : function (forward) {
+            switch(forward) {
+                case true:  if (site.page.item < site.page.tomeHash[site.page.book].length - 2)
+                                site.page.setKeys(site.page.tome, site.page.book, site.page.item + 1, site.page.share)
+                                break
+                case false: if (site.page.item > 0)
+                                site.page.setKeys(site.page.tome, site.page.book, site.page.item - 1, site.page.share)
+                                break
+            }
+            site.page.open()
+        },
+        
+        setTitleAndDescription : function() {
+            
+            let bookNameIndex = site.page.tomeHash[site.page.book].length - 1
+            let briefBookName
+            
+            try {
+                briefBookName = site.page.tomeHash[site.page.book][bookNameIndex][1]
+            } catch { 
+                briefBookName = ''
+            }
+            
+            description.setAttribute('content', site.page.tome + '. ' + site.page.book + '. ' + site.page.item)
+            
+            if (site.page.tome == 0) {
+                document.title = 'Дабравесце – ' + briefBookName + ' ' + (site.page.item + 1)
+            } else document.title = 'Дабравесце – ' + site.menu.tomes[site.page.tome]
+        },
+        
+    }, // page
+        
+        
+        
+    menu : {
+        
+        tomes : ['Новы Запавет',
+                 'Малітоўнік',
+                 'Спевы',
+                 'Кантакты'],
+        
+        make : function() {
+            let menu = ''
+            for (let tomeIndex = 0; tomeIndex < site.menu.tomes.length; tomeIndex++) {
+                menu += '<li class="tome" onclick="site.menu.toggleShowSubmenu(this)">' + site.menu.tomes[tomeIndex] + '</li>'
+                menu += '<div class="tome-submenu w3-hide">' + site.menu.books(tomeIndex) + '</div>'
+            }
+            if (site.layout.isDesktop) SideMenuContainer.innerHTML = menu
+            else MenuContainer.innerHTML = menu
+        },
+        
+        // site.menu.make() invokes
+        books : function(tomeIndex) {
+            site.page.tome = tomeIndex
+            site.page.swapTomeHash()
+            let bookNameIndex, bookMenu = ''
+            for (let bookIndex = 0; bookIndex < site.page.tomeHash.length; bookIndex++) {
+                bookNameIndex = site.page.tomeHash[bookIndex].length - 1
+                bookMenu += '<li class="book" onclick="site.menu.toggleShowSubmenu(this)">' + site.page.tomeHash[bookIndex][bookNameIndex][0] + '</li>'
+                bookMenu += '<div class="book-submenu w3-hide">' + site.menu.items(tomeIndex, bookIndex) + '</div>'
+            }
+            return bookMenu
+        },
+        
+        // site.menu.book() invokes
+        items : function(tomeIndex, bookIndex) {
+            let itemMenu = ''
+            for (let itemIndex = 0; itemIndex < site.page.tomeHash[bookIndex].length - 1; itemIndex++) {
+                itemMenu += '<li '
+                itemMenu += 'class="item w3-animate-left" '
+                itemMenu += 'onclick="site.page.go(this.id)" '
+                itemMenu += 'id="' + tomeIndex + '-' + bookIndex + '-' + itemIndex + '"' // for mark/unmark menu items
+                itemMenu += '>'
+                itemMenu += site.page.tomeHash[bookIndex][itemIndex][0]
+                itemMenu += '</li>'
+            }
+            return itemMenu
+        },
+
+        get activeItem() {
+            let itemId = site.page.tome + '-' + site.page.book + '-' + site.page.item
+            return document.getElementById(itemId)
+        },
+        
+        unmark : function() {
+            site.menu.activeItem.parentElement.previousElementSibling.parentElement.previousElementSibling.classList.remove('w3-text-blue')
+            site.menu.activeItem.parentElement.previousElementSibling.classList.remove('w3-text-blue')
+            site.menu.activeItem.classList.remove('w3-text-blue')
+        },
+        
+        mark : function() {
+            site.menu.activeItem.parentElement.previousElementSibling.parentElement.previousElementSibling.classList.add('w3-text-blue')
+            site.menu.activeItem.parentElement.previousElementSibling.classList.add('w3-text-blue')
+            site.menu.activeItem.classList.add('w3-text-blue')
+        },
+        
+        // expand active menu item in menu tree
+        expand : function() {
+            site.menu.activeItem.parentElement.              classList.remove('w3-hide')
+            site.menu.activeItem.parentElement.parentElement.classList.remove('w3-hide')
+        },
+        
+        // collapse (old) active menu item in menu tree
+        collapse : function() {
+            site.menu.activeItem.parentElement.              classList.add('w3-hide')
+            site.menu.activeItem.parentElement.parentElement.classList.add('w3-hide')
+        },
+        
+        show : function(toShow = true) { // for mobile
+            if (toShow) { // then show menu
+                site.view.show('MenuView')
+                MenuIcon.classList.add('w3-text-blue')
+                MenuIcon.setAttribute('onclick', 'site.menu.show(false)')
+                SearchIcon.classList.remove('w3-text-blue')
+            } else {
+                site.view.show('TextView')
+                MenuIcon.classList.remove('w3-text-blue')
+                MenuIcon.setAttribute('onclick', 'site.menu.show(true)')
+            }
+        },
+        
+        toggleShowSubmenu : function(that) {
+            let submenuList = document.getElementsByClassName(that.classList[0] + '-submenu')
+            if (that.nextSibling.classList.contains('w3-hide')) {
+                for (let i = 0; i < submenuList.length; i++) submenuList[i].classList.add('w3-hide')
+                that.nextSibling.classList.remove('w3-hide')
+            }
+            else that.nextSibling.classList.add('w3-hide')
+        },
+    }, // menu
+
+    
+    
+    
+    search : {
+    
+        filter : function() {
+            site.search.list = ''
+            
+            let searchValue = SearchField.value
+            if (CaseInsensitive.checked) searchValue = searchValue.toLowerCase()
+            
+            // avoid searching
+            if (searchValue == '' ||
+                searchValue.indexOf('<') > -1 ||
+                searchValue.indexOf('/') > -1 ||
+                searchValue.indexOf('p') > -1 ||
+                searchValue.indexOf('>') > -1) {
+                    SearchResults.innerHTML =''
+                    return
+                }
+            
+            // search
+            if (TestamentCheckbox.checked)  site.search.book(searchValue, newTestamentSearchable, 'Новы Запавет', 0)
+            if (PrayerbookCheckbox.checked) site.search.book(searchValue, prayerBook, 'Малітоўнік', 1)
+            if (SongbookCheckbox.checked)   site.search.book(searchValue, songs, 'Спевы', 2)
+            
+            // show results
+            if (site.search.list) SearchResults.innerHTML = site.search.list
+            else SearchResults.innerHTML = '<li>Безвынікова</li>'
+        },
+        
+        book : function(searchValue, searchedTome, searchedTomeName, searchedTomeIndex) {
+            for (let i = 0; i < searchedTome.length; i++) {
+                let aBook = searchedTome[i]
+                for (let j = 0; j < aBook.length - 1; j++) {
+                    let anItem = aBook[j][1]
+                    if (CaseInsensitive.checked == true) anItem = anItem.toLowerCase()
+                    if (anItem.indexOf(searchValue) > -1) site.search.enlist(searchedTomeIndex, searchedTomeName, i, aBook[aBook.length - 1][0], j, aBook[j][0])
+                }
+            }
+        },
+        
+        list : '',
+        
+        enlist : function(enlistedTome, enlistedTomeName, enlistedBook, enlistedBookName, enlistedItem, enlistedItemName) {
+            site.search.list += '<li onclick="site.page.setKeys(' + enlistedTome + ', ' + enlistedBook + ', ' + enlistedItem + ');site.page.open()">'
+            site.search.list += enlistedTomeName + '. ' + enlistedBookName + '. ' + enlistedItemName
+            site.search.list += '</li>'
+        },
+    
+        show : function () {
+            if (!SearchIcon.classList.contains('w3-text-blue')) { // show search view
+               
+                site.view.show('SearchView') // show only search view
+                SearchField.focus()
+                SearchIcon.classList.add('w3-text-blue') // mark icon blue
+               
+                let script = document.createElement('script') // append newTestament searchable
+                script.type = 'text/javascript'
+                script.src = 'tomes/new-testament-searchable.js'
+                document.head.appendChild(script)
+                
+                
+            } else { // hide search view
+                SearchIcon.classList.remove('w3-text-blue') // unmark search icon
+                site.view.show('TextView') // show only text view
+                // removing the <script> tag does not remove its objects from the DOM
+            }
+        },
+        
+        toggleShowSettings : function() {
+            (SearchSettings.classList.contains('w3-hide'))
+            ? SearchSettings.classList.remove('w3-hide')
+            : SearchSettings.classList.add('w3-hide')
+        },
+    }, // search
+    
+    
+    
+    view : {
+    
+        show : function(viewId) {
+            let views = document.getElementsByClassName('view')
+            for (let i = 0; i < views.length; i++) views[i].classList.add('w3-hide')
+            document.getElementById(viewId).classList.remove('w3-hide')
+        }
+    }, // view
+
+
+
+    sendMail : function () {
+        let inputFields = document.getElementsByClassName('w3-input')
+        let request = new XMLHttpRequest()
+        request.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                if (this.responseText) MailForm.reset()
+            }
+        }
+        request.open('POST', 'send-mail.php', true)
+        request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+        request.send('Name=' + inputFields[0].value + '&Email=' + inputFields[1].value + '&Subject=' + inputFields[2].value + '&Comment=' + inputFields[3].value)
+    }, // sendMail
+    
+    
+    
+    
+    setAudio : function () {
+        let bookFolderName, itemFileName
+        
+        switch(site.page.tome) {
+        
+            case 0: // gospel
+                switch(site.page.book) {
+                    case 0 : bookFolderName = 'matt'; break
+                    case 1 : bookFolderName = 'mark'; break
+                    case 2 : bookFolderName = 'luke'; break
+                    case 3 : bookFolderName = 'john'; break
+                    default : AudioElement.classList.add('w3-hide'); return
+                }
+                itemFileName = (site.page.item + 1).toString()
+                if (itemFileName.length < 2) itemFileName = '0' + itemFileName
+                break
+                
+            case 1: // prayers
+                bookFolderName = 'pray'
+                switch(site.page.book) {
+                    case 0: // everyday prayers
+                        switch(site.page.item) {
+                            case 0 : itemFileName = 'morning'; break
+                            case 1 : itemFileName = 'evening'; break
+                            // 2. Different prayers: no audio
+                            default : AudioElement.classList.add('w3-hide'); return
+                        }
+                        break
+                    // 2. Eucharist prayers; 3. Easter prayers: no audio
+                    case 3: // worships
+                        switch(site.page.item) {
+                            case 0 : itemFileName = 'liturgy'; break
+                            case 1 : itemFileName = 'moleben'; break
+                            case 2 : itemFileName = 'requiem'; break
+                            default : AudioElement.classList.add('w3-hide'); return // fallback
+                        }
+                        break
+                    default : AudioElement.classList.add('w3-hide'); return
+                }
+                break;
+            
+            case 2: // songs
+                bookFolderName = 'song'
+                let correctionNumber = 0
+                switch(site.page.book) {
+                    case 1 : correctionNumber =  6; break
+                    case 2 : correctionNumber = 13; break
+                    case 3 : correctionNumber = 20; break
+                }
+                itemFileName = (site.page.item + 1 + correctionNumber).toString()
+                if (itemFileName.length < 2) itemFileName = '0' + itemFileName
+                break
+                
+            default: AudioElement.classList.add('w3-hide'); return // contacts and fallback
+        }
+        
+        AudioElement.classList.remove('w3-hide')
+        SourceElement.src = 'https://www.dabravesce.by/audio/' + bookFolderName + '/' + itemFileName +'.mp3'
+        AudioElement.load()
+    }, // setAudio
+  
+  
+    
+    smms : {
+        
+        shareSmm : function (socialNetwork) {
+        
+            let sharedUrl = 'https://dabravesce.by?i=' + site.page.tome + '-' + site.page.book + '-' + site.page.item
+            let shareInfo = TomeInfo.innerHTML + '. ' + BookInfo.innerHTML + '. ' + ItemInfo.innerHTML
+            let hashTags = '%23Біблія+%23Евангелле+%23Библия+%23Евангелие+%23Bible+%23Gospel'
+            let href = location.href
+            
+            // %0A : line break; %23 : hash
+            switch(socialNetwork) {
+                case 'twitter'  :
+                    href = 'https://twitter.com/intent/tweet?text=' + shareInfo + ':' + '&url=' + sharedUrl + '%0A%0A'
+                         + '&hashtags=Біблія,Евангелле,Библия,Евангелие,Bible,Gospel'
+                    break
+                case 'facebook' :
+                    href = 'https://facebook.com/sharer.php?u=' + sharedUrl + '&app_id=480142549312931&quote=' + shareInfo + '%0A%0A' + hashTags
+                    break
+                case 'telegram' :
+                    href = 'https://t.me/share/url?url=' + sharedUrl + '%0A' + '&text=' + shareInfo + '%0A%0A' + hashTags
+            }
+            
+            location.href = href
+        },
+        
+        swap : function() { // SmmsLine
+            if (SmmsLine.classList.contains('w3-hide')) site.smms.show()
+            else site.smms.hide()
+            site.href.keep()
+        },
+        
+        show : function() { // SmmsLine
+            SmmsLine.classList.remove('w3-hide')
+            ShareIcon.classList.add('w3-text-blue')
+            site.page.share = 1
+            SmmsLine.scrollIntoView({behavior: "smooth", block: "center"})
+        },
+        
+        hide : function() { // SmmsLine
+            SmmsLine.classList.add('w3-hide')
+            ShareIcon.classList.remove('w3-text-blue')
+            site.page.share = 0
+        },
+
+    }, // smms
+    
+    
+    
+    daily : {
+        
+        book : null,
+        item : null,
+        
+        gospel : function() {
+            if (!site.daily.book) {
+                site.daily.indices()
+                return
+            }
+            site.daily.load()
+        },
+        
+        indices : function() {
+            let request = new XMLHttpRequest()
+            request.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200){
+                    let keys = this.responseText.split(' | ')
+                    site.daily.book = Number(keys[0])
+                    site.daily.item = Number(keys[1])
+                    site.daily.load()
+                }
+            }
+            request.open('GET', 'app/cron/daily-gospel.txt', true)
+            request.send()
+        },
+        
+        load : function() { site.page.go(0 + '-' + site.daily.book + '-' + site.daily.item + '-' + site.page.share) },
+        
+    }, // daily
+
+}
+
+site.load.first()
+
+</script>
+<!-- Yandex.Metrika counter -->
+<script>
+   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+   m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+   (window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js', 'ym');
+   ym(50744101, 'init', {
+        id:50744101,
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true
+   });
+</script>
+<noscript><div><img src='https://mc.yandex.ru/watch/50744101' style='position:absolute; left:-9999px;' alt='' /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+<!-- Global site tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-41520912-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-41520912-2');
+</script>
+<!-- Google Analytics -->
+</html>
