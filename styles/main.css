@@ -1,0 +1,34 @@
+@font-face {
+    font-family: Comfortaa;
+    src: url(../app/font/comfortaa-regular.ttf);
+}
+
+/* linked google fonts fail to show accents in Edge */
+* { 
+    font-family: Comfortaa, sans-serif;
+    font-size:14px;
+}
+
+html { height:100% }
+table { border-spacing:12px; width:100%; height:100% }
+tr:nth-child(2) td { padding:0 16px }
+audio { outline:none; height:40px; border-radius:20px; width:100%; margin:16px 0; }
+#WrapperRight, #WrapperLeft { scrollbar-width:none; } ::-webkit-scrollbar { display:none; }
+
+ul li, #SearchLine { cursor:pointer }
+.w3-ul li.book { padding-left:32px }
+.w3-ul li.item { padding-left:48px }
+.item:hover { color:#2196F3 }
+#TextView { padding:0 16px }
+.view, .menu { margin-top:32px }
+
+.padded { padding:10px 12px 6px; cursor:pointer; display:inline-block }
+.padded div {font-size:10px}
+
+@media only screen and (max-width: 480px) {
+    .padded div { font-size:8px }
+    .w3-ul li { padding:8px 12px }
+    .w3-ul li.book { padding-left:24px }
+    .w3-ul li.item { padding-left:36px }
+    #TextView { padding:0 }
+}
