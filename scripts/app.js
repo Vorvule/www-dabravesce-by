@@ -89,7 +89,6 @@ const site = {
 
         setKeys: function (tome, book, item, share) {
             site.menu.unmark()
-            site.menu.collapse()
 
             site.page.tome = tome
             site.page.book = book
@@ -103,9 +102,7 @@ const site = {
                 site.smms.hide()
             }
 
-            site.menu.expand()
             site.menu.mark()
-
             site.href.keep()
         },
 
